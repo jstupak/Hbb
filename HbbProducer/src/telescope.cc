@@ -1,4 +1,4 @@
-#include "VHbb/HbbProducer/interface/HbbTuple.h"
+#include "Hbb/HbbProducer/interface/HbbTuple.h"
 
 #include "FWCore/Framework/interface/Event.h"
 #include "DataFormats/JetReco/interface/Jet.h"

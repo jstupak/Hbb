@@ -1,4 +1,4 @@
-#include "VHbb/HbbProducer/interface/HbbTuple.h"
+#include "Hbb/HbbProducer/interface/HbbTuple.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 #include "DataFormats/Math/interface/deltaR.h"

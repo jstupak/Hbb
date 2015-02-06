@@ -1,9 +1,9 @@
 // -*- C++ -*-
 //
-// Package:    VHbb/HbbProducer
+// Package:    Hbb/HbbProducer
 // Class:      HbbProducer
 // 
-/**\class HbbProducer HbbProducer.cc VHbb/HbbProducer/plugins/HbbProducer.cc
+/**\class HbbProducer HbbProducer.cc Hbb/HbbProducer/plugins/HbbProducer.cc
 
    Description: [one line class summary]
 
@@ -35,10 +35,10 @@
 #include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 
 // user include files
-#include "VHbb/HbbProducer/interface/HbbTuple.h"
-#include "VHbb/HbbProducer/src/telescope.cc"
-#include "VHbb/HbbProducer/src/groom.cc"
-#include "VHbb/HbbProducer/src/helpers.cc"
+#include "Hbb/HbbProducer/interface/HbbTuple.h"
+#include "Hbb/HbbProducer/src/telescope.cc"
+#include "Hbb/HbbProducer/src/groom.cc"
+#include "Hbb/HbbProducer/src/helpers.cc"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
-#ifndef VHbb_HbbProducer_HbbTuple_h
-#define VHbb_HbbProducer_HbbTuple_h
+#ifndef Hbb_HbbProducer_HbbTuple_h
+#define Hbb_HbbProducer_HbbTuple_h
 
 #include "TLorentzVector.h"
 
@@ -309,3 +309,6 @@ namespace Hbb
 }
 
 #endif
+
+/*  LocalWords:  ifndef
+ */

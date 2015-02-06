@@ -1,7 +1,7 @@
 #include "DataFormats/JetReco/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
 
-#include "VHbb/HbbProducer/interface/HbbTuple.h"
+#include "Hbb/HbbProducer/interface/HbbTuple.h"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
 #include "DataFormats/Common/interface/Wrapper.h"
-#include "VHbb/HbbProducer/interface/HbbTuple.h"
+#include "Hbb/HbbProducer/interface/HbbTuple.h"
 #include <vector>
 
 namespace { 

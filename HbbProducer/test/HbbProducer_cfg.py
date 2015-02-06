@@ -20,7 +20,7 @@ theGlobalTag='PLS170_V6AN1::All'   #PU_S14
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.load('VHbb.HbbProducer.HbbProducer_cfi')
+process.load('Hbb.HbbProducer.HbbProducer_cfi')
 
 #####################################################################################################################################
 
