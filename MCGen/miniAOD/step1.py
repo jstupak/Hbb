@@ -19,8 +19,18 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("LHESource",
-    fileNames = cms.untracked.vstring('file:/eos/uscms/store/user/lpcmbja/noreplica/boostedGen/Zh/lhe/unweighted_events.1.lhe')
-)
+    fileNames = cms.untracked.vstring('file:unweighted_events.1.lhe',
+                                      'file:unweighted_events.2.lhe',
+                                      'file:unweighted_events.3.lhe',
+                                      'file:unweighted_events.4.lhe',
+                                      'file:unweighted_events.5.lhe',
+                                      'file:unweighted_events.6.lhe',
+                                      'file:unweighted_events.7.lhe',
+                                      'file:unweighted_events.8.lhe',
+                                      'file:unweighted_events.9.lhe',
+                                      'file:unweighted_events.10.lhe',
+                                      )
+                            )
 
 process.options = cms.untracked.PSet(
 
