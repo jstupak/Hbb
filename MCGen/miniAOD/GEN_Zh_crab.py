@@ -9,7 +9,7 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.generator = 'lhe'
 config.JobType.psetName = 'step1.py'
 config.JobType.allowNonProductionCMSSW = True
-config.JobType.inputFiles = ['/eos/uscms/store/user/lpcmbja/noreplica/boostedGen/Zh/lhe/unweighted_events.1.lhe']
+config.JobType.inputFiles = ['/eos/uscms/store/user/lpcmbja/noreplica/boostedGen/Zh/lhe/unweighted_events.1.lhe',
                              '/eos/uscms/store/user/lpcmbja/noreplica/boostedGen/Zh/lhe/unweighted_events.2.lhe',
                              '/eos/uscms/store/user/lpcmbja/noreplica/boostedGen/Zh/lhe/unweighted_events.3.lhe',
                              '/eos/uscms/store/user/lpcmbja/noreplica/boostedGen/Zh/lhe/unweighted_events.4.lhe',
@@ -23,7 +23,7 @@ config.JobType.inputFiles = ['/eos/uscms/store/user/lpcmbja/noreplica/boostedGen
 config.section_("Data")
 config.Data.primaryDataset ='Zh_m125_PtZ-200'
 config.Data.splitting = 'EventBased'
-config.Data.unitsPerJob = 250
+config.Data.unitsPerJob = 500
 config.Data.totalUnits = 100000
 config.Data.publication = True
 config.Data.publishDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter/'
