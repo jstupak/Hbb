@@ -1,6 +1,8 @@
 from WMCore.Configuration import Configuration
 config = Configuration()
 
+import getpass
+
 config.section_("General")
 config.General.requestName = 'GEN_Zh'
 
@@ -28,7 +30,7 @@ config.Data.totalUnits = 100000
 config.Data.publication = True
 config.Data.publishDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter/'
 config.Data.publishDataName = 'GEN'
-config.Data.outLFN = '/store/group/lpcmbja/noreplica/boostedGen/Zh/GEN/'
+config.Data.outLFN = '/store/group/lpcmbja/noreplica/boostedGen/Zh/GEN/'+getpass.getuser()
 config.Data.ignoreLocality = True
 
 config.section_("Site")
