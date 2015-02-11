@@ -238,6 +238,8 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   if(prunedGenParticles->size()>0){
     for (auto input=prunedGenParticles->begin(); input!=prunedGenParticles->end(); ++input){
       Hbb::GenParticle output=Hbb::GenParticle(input->pt(), input->eta(), input->phi(), input->mass());
+      if(output.lv.Pt()==0) continue;
+      
       output.pdgId=input->pdgId();
       output.status=input->status();
       
@@ -250,46 +252,55 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	if (daughter) output.daughterIds.push_back(daughter->pdgId());
       }
 
-      if(output.daughterIds.size()>0) {
-	if((output.pdgId==23||abs(output.pdgId)==24) && output.daughterIds[0]==25)
-	  _output.genVstar=output;
-      }
-      else {
-	if(output.daughterIds.size()>1) {
-	  if ((output.pdgId==23||abs(output.pdgId)==24) && output.daughterIds[1]==25)
-	    _output.genVstar=output;
-	}
+      //NB: Storing pre-ISR particles
+
+      if(_output.genVstar.pdgId!=-9999 && _output.genV.pdgId==-9999){   //found Vstar but not V so far
+        if(output.pdgId==23||abs(output.pdgId)==24)
+          _output.genV=output;
       }
 
-      if(output.daughterIds.size()>0) {
-	if((output.pdgId==23||abs(output.pdgId)==24) && (abs(output.daughterIds[0])==11||
-							 abs(output.daughterIds[0])==12||
-							 abs(output.daughterIds[0])==13||
-							 abs(output.daughterIds[0])==14||
-							 abs(output.daughterIds[0])==15||
-							 abs(output.daughterIds[0])==16||
-							 abs(output.daughterIds[0])==1||
-							 abs(output.daughterIds[0])==2||
-							 abs(output.daughterIds[0])==3||
-							 abs(output.daughterIds[0])==4||
-							 abs(output.daughterIds[0])==5||
-							 abs(output.daughterIds[0])==6))                       
-	  _output.genV=output;
-	
-	if( output.pdgId==25                     && abs(output.daughterIds[0])==5)
-	_output.genHiggs=output;
+      if(_output.genVstar.pdgId==-9999){   //Vstar not found so far
+        if(output.pdgId==23||abs(output.pdgId)==24)
+          _output.genVstar=output;
       }
 
-      if((output.pdgId==11||output.pdgId==12||output.pdgId==13||output.pdgId==14||output.pdgId==15||output.pdgId==16) && (output.motherId==23||abs(output.motherId)==24)) 
-	_output.genLepton=output;
-      if((output.pdgId==-11||output.pdgId==-12||output.pdgId==-13||output.pdgId==-14||output.pdgId==-15||output.pdgId==-16) && (output.motherId==23||abs(output.motherId)==24)) 
-	_output.genAntiLepton=output;
-      if(output.pdgId==5 && output.motherId==25) 
-	_output.genB=output;
-      if(output.pdgId==-5 && output.motherId==25) 
-	_output.genAntiB=output;
+      if(_output.genHiggs.pdgId==-9999){   //Higgs not found so far
+        if(output.pdgId==25)
+          _output.genHiggs=output;
+      }
+
+      if(_output.genLepton.pdgId==-9999){
+        if(output.pdgId==11||output.pdgId==13||output.pdgId==15)
+          _output.genLepton=output;
+      }
+
+      if(_output.genAntiLepton.pdgId==-9999){
+        if(output.pdgId==-11||output.pdgId==-13||output.pdgId==-15)
+          _output.genAntiLepton=output;
+      }
+
+      if(_output.genNeutrino.pdgId==-9999){
+        if(output.pdgId==12||output.pdgId==14||output.pdgId==16)
+          _output.genNeutrino=output;
+      }
+
+      if(_output.genAntiNeutrino.pdgId==-9999){
+	if(output.pdgId==-12||output.pdgId==-14||output.pdgId==-16)
+          _output.genAntiNeutrino=output;
+      }
+
+      if(_output.genB.pdgId==-9999){
+        if(output.pdgId==5)
+          _output.genB=output;
+      }
+
+      if(_output.genAntiB.pdgId==-9999){
+        if(output.pdgId==-5)
+          _output.genAntiB=output;
+      }
 
       _output.genParticles.push_back(output);
+
     }
   }
   
@@ -308,7 +319,7 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   if(AK4jets->size()>1){
     pat::Jet d1=pat::Jet();
     pat::Jet d2=pat::Jet();
-    getHiggsCandidate(AK4jets, d1, d2);
+    getHiggsCandidate(AK4jets, d1, d2, 1);
     
     Hbb::Jet j1=Hbb::Jet(d1);
     Hbb::Jet j2=Hbb::Jet(d2);
