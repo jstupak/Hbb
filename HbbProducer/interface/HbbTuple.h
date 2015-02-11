@@ -285,6 +285,8 @@ namespace Hbb
     GenParticle genHiggs;
     GenParticle genLepton;
     GenParticle genAntiLepton;
+    GenParticle genNeutrino;
+    GenParticle genAntiNeutrino;
     GenParticle genB;
     GenParticle genAntiB;
     std::vector<GenParticle> genParticles;
