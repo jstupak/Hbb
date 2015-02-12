@@ -52,7 +52,7 @@ double beta = 1.0; // power for angular dependence, e.g. beta = 1 --> linear k-m
 
 void groom(pat::Jet iJet, Hbb::Jet& oJet, double R){
   
-  oJet.csv = iJet.bDiscriminator("combinedSecondaryVertexBJetTags");
+  //oJet.csv = iJet.bDiscriminator("combinedSecondaryVertexBJetTags");
 
   reco::Jet::Constituents constituents=iJet.getJetConstituents();
 
