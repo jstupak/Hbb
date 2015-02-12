@@ -320,12 +320,21 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     pat::Jet d1=pat::Jet();
     pat::Jet d2=pat::Jet();
     getHiggsCandidate(AK4jets, d1, d2, 1);
-    
+
     Hbb::Jet j1=Hbb::Jet(d1);
     Hbb::Jet j2=Hbb::Jet(d2);
     Hbb::Higgs h=Hbb::Higgs(j1.lv+j2.lv);
-    h.daughters.push_back(j1);
-    h.daughters.push_back(j2);
+    if(j1.lv.Pt()>j2.lv.Pt()){
+      h.daughters.push_back(j1);
+      h.daughters.push_back(j2);
+      _output.pull=getPull(d1,d2);
+    }
+    else{
+      h.daughters.push_back(j2);
+      h.daughters.push_back(j1);
+      _output.pull=getPull(d2,d1);
+    }
+
     _output.theHiggs=h;
 
     vector<Hbb::Higgs> teleHiggs=telescope(d1, d2, packedCandidates, iEvent, iSetup);

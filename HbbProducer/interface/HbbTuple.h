@@ -121,7 +121,7 @@ namespace Hbb
       {
 	this->initialize();
 	this->area = input.jetArea();
-	this->csv = input.bDiscriminator("combinedSecondaryVertexBJetTags");
+	this->csv = input.bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags");
       }
     
   Jet(TLorentzVector theLV) : Object(theLV)
@@ -262,6 +262,8 @@ namespace Hbb
   {
     int eventClassification;
     float rho;
+    
+    double pull;
     
     std::vector<Jet> AK4PFCHS;
     std::vector<Jet> AK8PFCHS;

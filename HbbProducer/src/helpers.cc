@@ -55,3 +55,31 @@ void getHiggsCandidate(vector<Hbb::Jet> inputJets, pair<int,int> &leadingSublead
     }
   }
 }
+
+
+
+double getPull(pat::Jet j1, pat::Jet j2){
+
+  double pullPhi=0;
+  double pullY=0;
+  
+  reco::Jet::Constituents constituents=j1.getJetConstituents();
+  
+  for(auto constituentItr=constituents.begin(); constituentItr!=constituents.end(); ++constituentItr){
+    edm::Ptr<reco::Candidate> constituent=*constituentItr;
+    
+    double deltaY=constituent->y()-j1.y();
+    double deltaPhi=constituent->phi()-j1.phi();
+    pullPhi += constituent->pt() * sqrt( pow(deltaY,2) + pow(deltaPhi,2) ) * deltaPhi;
+    pullY   += constituent->pt() * sqrt( pow(deltaY,2) + pow(deltaPhi,2) ) * deltaY;
+  }
+  pullPhi=pullPhi/j1.pt();
+  pullY  =pullY  /j1.pt();
+  double pullTheta=atan(pullPhi/pullY);
+
+  double deltaY=j1.y()-j2.y();
+  double deltaPhi=j1.phi()-j2.phi();
+  double deltaTheta=atan(deltaPhi/deltaY);
+  
+  return acos(cos(pullTheta-deltaTheta));
+}
