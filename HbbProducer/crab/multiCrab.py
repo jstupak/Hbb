@@ -9,7 +9,7 @@ jobs=[#'REQUESTNAME','INPUTDATASET','PUBLISHDATANAME','LBSPERJOB'],
     #['ttbar_PU40bx50_PLS170_V6AN1',        '/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/StoreResults-Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v2/USER','PU40bx50_PLS170_V6AN1',1200,'phys03'],
     ['Zh','/CRAB_PrivateMC/bparida-Zh_pT200_MINIAODSIM-5aeef11518ff3267c48efc923ff0710e/USER','PU40bx50_PLS170_V6AN1-genBugFix-HBB',500,'phys03'],
     ['Zjets','/CRAB_PrivateMC/bparida-Zjets_pT200_MINIAODSIM-5aeef11518ff3267c48efc923ff0710e/USER','PU40bx50_PLS170_V6AN1-genBugFix-HBB',500,'phys03'],
-    ['ttbar','/CRAB_PrivateMC/bparida-ttbar_pT200_MINIAODSIM-5aeef11518ff3267c48efc923ff0710e/USER','PU40bx50_PLS170_V6AN1-genBugFix-HBB',500,'phys03']
+    #['ttbar','/CRAB_PrivateMC/bparida-ttbar_pT200_MINIAODSIM-5aeef11518ff3267c48efc923ff0710e/USER','PU40bx50_PLS170_V6AN1-genBugFix-HBB',500,'phys03']
     ]
 
 template='crab/crabTemplate.py'
