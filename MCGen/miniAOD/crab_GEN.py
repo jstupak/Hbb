@@ -1,5 +1,5 @@
 events=100000
-physicsProcess='Zjets'
+physicsProcess='Zh'
 globalTag='PHYS14_50_V2'
 
 from WMCore.Configuration import Configuration
@@ -19,7 +19,8 @@ config.JobType.allowNonProductionCMSSW = True
 config.JobType.pyCfgParams = [ 'physicsProcess='+physicsProcess, 'globalTag='+globalTag ]
 
 config.section_("Data")
-config.Data.primaryDataset = physicsProcess+'_m125_PtZ-200'
+if physicsProcess=='Zh': config.Data.primaryDataset = 'Zh_m125_PtZ-200'
+elif physicsProcess=='Zjets': config.Data.primaryDataset = 'Zjets_PtZ-200'
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = events
 config.Data.totalUnits = events
