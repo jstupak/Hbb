@@ -1,3 +1,11 @@
+physicsProcess='Zh'
+globalTag='PHYS14_50_V2'
+
+from CRABClient.UserUtilities import getUsernameFromSiteDB
+username=getUsernameFromSiteDB()
+
+config.General.requestName = 'SIM_'+physicsProcess
+
 from WMCore.Configuration import Configuration
 config = Configuration()
 
@@ -8,6 +16,7 @@ config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'step4.py'
 config.JobType.allowNonProductionCMSSW = True
+config.JobType.pyCfgParams = [ 'physicsProcess='+physicsProcess, 'globalTag='+globalTag ]
 
 config.section_("Data")
 config.Data.inputDataset = '/CRAB_PrivateMC/bparida-Zh_pT200_RAW-e3ad8888848d2e90bbd6e6e99f286155/USER'

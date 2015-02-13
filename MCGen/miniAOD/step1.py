@@ -1,3 +1,23 @@
+import FWCore.ParameterSet.VarParsing as VarParsing
+options = VarParsing.VarParsing ('analysis')
+
+options.register ('physicsProcess',
+                  '', # default value
+                  VarParsing.VarParsing.multiplicity.singleton,
+                  VarParsing.VarParsing.varType.string,
+                  "The physics process (Zh, Zjets, ttbar)")
+
+options.register ('globalTag',
+                  '', # default value
+                  VarParsing.VarParsing.multiplicity.singleton,
+                  VarParsing.VarParsing.varType.string,
+                  "The global tag")
+
+options.parseArguments()
+
+#if not options.physicsProcess: options.physicsProcess='Zh'
+#if not options.globalTag: options.globalTag='PHYS14_50_V2'
+
 # Auto generated configuration file
 # using: 
 # Revision: 1.19 
@@ -14,21 +34,21 @@ process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10000)
+    input = cms.untracked.int32(100000)
 )
 
 # Input source
 process.source = cms.Source("LHESource",
-    fileNames = cms.untracked.vstring('file:unweighted_events.1.lhe',
-                                      'file:unweighted_events.2.lhe',
-                                      'file:unweighted_events.3.lhe',
-                                      'file:unweighted_events.4.lhe',
-                                      'file:unweighted_events.5.lhe',
-                                      'file:unweighted_events.6.lhe',
-                                      'file:unweighted_events.7.lhe',
-                                      'file:unweighted_events.8.lhe',
-                                      'file:unweighted_events.9.lhe',
-                                      'file:unweighted_events.10.lhe',
+    fileNames = cms.untracked.vstring('root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.1.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.2.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.3.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.4.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.5.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.6.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.7.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.8.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.9.lhe',
+                                      'root://cmsxrootd.fnal.gov//store/user/lpcmbja/noreplica/boostedGen/'+options.physicsProcess+'/lhe/unweighted_events.11.lhe',
                                       )
                             )
 
@@ -60,7 +80,7 @@ process.LHEoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'PHYS14_50_V2', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, options.globalTag, '')
 
 # Path and EndPath definitions
 process.LHEoutput_step = cms.EndPath(process.LHEoutput)
