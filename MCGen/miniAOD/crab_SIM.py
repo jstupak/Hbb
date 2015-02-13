@@ -1,4 +1,4 @@
-physicsProcess='Zjets'
+physicsProcess='Zh'
 globalTag='PHYS14_50_V2'
 
 from WMCore.Configuration import Configuration
@@ -18,14 +18,12 @@ config.JobType.pyCfgParams = [ 'physicsProcess='+physicsProcess, 'globalTag='+gl
 
 config.section_("Data")
 if physicsProcess=='Zh':
-    config.Data.inputDataset = '/Zh_m125_PtZ-200/jstupak-GEN-3f22eb42fbc8c953391827da6f10333b/USER'
+    config.Data.inputDataset = '/Zh_m125_PtZ-200/xuchen-GEN-3f22eb42fbc8c953391827da6f10333b/USER'
 if physicsProcess=='Zjets':
     config.Data.inputDataset = '/Zjets_m125_PtZ-200/jstupak-GEN-3f22eb42fbc8c953391827da6f10333b/USER'
-if physicsProcess=='ttbar':
-    config.Data.inputDataset = ''
 config.Data.inputDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSReader/'
 config.Data.splitting = 'LumiBased'
-config.Data.unitsPerJob = 5
+config.Data.unitsPerJob = 10
 config.Data.publication = True
 config.Data.publishDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter/'
 config.Data.publishDataName = 'GENSIM'

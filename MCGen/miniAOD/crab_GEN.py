@@ -1,4 +1,4 @@
-events=100000
+events=1000000
 physicsProcess='Zh'
 globalTag='PHYS14_50_V2'
 
