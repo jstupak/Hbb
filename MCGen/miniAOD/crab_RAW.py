@@ -21,11 +21,9 @@ if physicsProcess=='Zh':
     config.Data.inputDataset = '/Zh_m125_PtZ-200/jstupak-GENSIM-18b392c6220e732772ac7ab670c61bc1/USER'
 if physicsProcess=='Zjets':
     config.Data.inputDataset = ''
-if physicsProcess=='ttbar':
-    config.Data.inputDataset = ''
 config.Data.inputDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSReader/'
 config.Data.splitting = 'LumiBased'
-config.Data.unitsPerJob = 10
+config.Data.unitsPerJob = 5
 config.Data.publication = True
 config.Data.publishDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter/'
 config.Data.publishDataName = 'RAW'

@@ -4,13 +4,11 @@ globalTag='PHYS14_50_V2'
 from CRABClient.UserUtilities import getUsernameFromSiteDB
 username=getUsernameFromSiteDB()
 
-config.General.requestName = 'SIM_'+physicsProcess
-
 from WMCore.Configuration import Configuration
 config = Configuration()
 
 config.section_("General")
-config.General.requestName = 'AODSIM_Zh'
+config.General.requestName = 'AOD_'+physicsProcess
 
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
@@ -19,14 +17,17 @@ config.JobType.allowNonProductionCMSSW = True
 config.JobType.pyCfgParams = [ 'physicsProcess='+physicsProcess, 'globalTag='+globalTag ]
 
 config.section_("Data")
-config.Data.inputDataset = '/CRAB_PrivateMC/bparida-Zh_pT200_RAW-e3ad8888848d2e90bbd6e6e99f286155/USER'
+if physicsProcess=='Zh':
+    config.Data.inputDataset = '/Zh_m125_PtZ-200/jstupak-RAW-637d1501b11ffc3149a6110710d366a6/USER'
+if physicsProcess=='Zjets':
+    config.Data.inputDataset = '/Zjets_m125_PtZ-200/jstupak-RAW-637d1501b11ffc3149a6110710d366a6/USER'
 config.Data.inputDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSReader/'
-config.Data.splitting = 'FileBased'
-config.Data.unitsPerJob = 1
+config.Data.splitting = 'LumiBased'
+config.Data.unitsPerJob = 10
 config.Data.publication = True
 config.Data.publishDBS = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter/'
-config.Data.publishDataName = 'Zh_pT200_AODSIM'
-config.Data.outLFN = '/store/user/bparida/AODSIM'
+config.Data.publishDataName = 'AODSIM'
+config.Data.outLFN = '/store/group/lpcmbja/noreplica/boostedGen/'+username
 config.Data.ignoreLocality = True
 
 config.section_("Site")
