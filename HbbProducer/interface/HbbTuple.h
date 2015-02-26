@@ -263,7 +263,7 @@ namespace Hbb
     int eventClassification;
     float rho;
     
-    double pull;
+    double pull, genPull;
     
     std::vector<Jet> AK4PFCHS;
     std::vector<Jet> AK8PFCHS;
@@ -294,7 +294,7 @@ namespace Hbb
     std::vector<GenParticle> genParticles;
     
   Tuple() : 
-      eventClassification(-9999), rho(-9999),
+    eventClassification(-9999), rho(-9999), pull(-9999), genPull(-9999),
       AK4PFCHS(std::vector<Jet>()), AK8PFCHS(std::vector<Jet>()), AK10PFCHS(std::vector<Jet>()), AK12PFCHS(std::vector<Jet>()), AK15PFCHS(std::vector<Jet>()),
       Electrons(std::vector<Electron>()), Muons(std::vector<Muon>()),Taus(std::vector<Tau>()),
       TeleHiggs(std::vector<Higgs>()), genTeleHiggs(std::vector<Higgs>()),

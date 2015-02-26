@@ -1,6 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 HbbProducer = cms.EDProducer('HbbProducer',
+                             
+                             higgsCandSelection=cms.int32(0),
+                             
                              rhoSource=cms.InputTag('fixedGridRhoFastjetAll'),
 
                              packedCandidateSource=cms.InputTag('pfNoLeptonCHS'),
@@ -18,7 +21,7 @@ HbbProducer = cms.EDProducer('HbbProducer',
                              AK12PackedSource=cms.InputTag('goodPatJetsAK12PFCHSFilteredPacked'),
                              AK15PackedSource=cms.InputTag('goodPatJetsAK15PFCHSFilteredPacked'),
                              
-                             AK4GenSource =cms.InputTag('ak4GenJets'),
+                             AK4GenSource=cms.InputTag('patJetsAK4GEN'),
                              
                              muonSource=cms.InputTag('selectedMuons'),
                              electronSource=cms.InputTag('selectedElectrons'),

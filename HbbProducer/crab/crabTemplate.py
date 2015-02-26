@@ -7,6 +7,7 @@ config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'test/HbbProducer_cfg.py'
 config.JobType.allowNonProductionCMSSW = True
+config.JobType.pyCfgParams = [ 'theGlobalTag=GLOBALTAG', 'higgsCandSelection=HIGGSCANDSEL' ]
 
 config.section_("Data")
 config.Data.inputDataset = 'INPUTDATASET'

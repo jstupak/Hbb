@@ -1,274 +1,51 @@
 import FWCore.ParameterSet.Config as cms
 
+import FWCore.ParameterSet.VarParsing as VarParsing
+options = VarParsing.VarParsing ('analysis')
+
+options.register ('theGlobalTag',
+                  '', # default value
+                  VarParsing.VarParsing.multiplicity.singleton,
+                  VarParsing.VarParsing.varType.string,
+                  "The global tag")
+
+options.register ('higgsCandSelection',
+                  0, # default value
+                  VarParsing.VarParsing.multiplicity.singleton,
+                  VarParsing.VarParsing.varType.int,
+                  "The global tag")
+
+options.parseArguments()
 
 process = cms.Process("Hbb")
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True),
                                      allowUnscheduled = cms.untracked.bool(True) 
                                      )
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.source = cms.Source("PoolSource",
                             fileNames = cms.untracked.vstring(
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_1.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_10.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_100.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_101.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_102.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_103.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_104.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_105.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_106.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_107.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_108.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_109.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_11.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_110.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_111.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_112.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_113.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_114.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_115.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_116.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_117.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_118.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_119.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_12.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_120.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_121.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_122.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_123.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_124.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_125.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_126.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_127.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_128.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_129.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_13.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_130.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_131.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_132.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_133.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_134.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_135.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_136.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_137.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_138.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_139.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_14.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_140.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_141.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_142.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_143.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_144.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_145.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_146.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_147.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_148.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_149.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_15.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_150.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_151.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_152.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_153.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_154.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_155.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_156.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_157.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_158.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_159.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_16.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_160.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_161.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_162.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_163.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_164.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_165.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_166.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_167.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_168.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_169.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_17.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_170.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_171.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_172.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_173.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_174.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_175.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_176.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_177.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_178.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_179.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_18.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_180.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_181.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_182.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_183.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_184.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_185.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_186.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_187.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_188.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_189.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_19.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_190.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_191.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_192.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_193.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_194.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_195.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_196.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_197.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_198.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_199.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_2.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_20.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_200.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_201.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_202.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_203.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_204.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_205.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_206.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_207.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_208.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_209.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_21.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_210.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_211.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_212.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_213.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_214.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_215.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_216.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_217.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_218.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_219.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_22.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_220.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_221.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_222.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_223.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_224.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_225.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_226.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_227.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_228.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_229.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_23.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_230.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_231.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_232.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_233.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_234.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_235.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_236.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_237.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_238.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_239.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_24.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_240.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_241.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_242.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_243.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_244.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_245.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_246.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_247.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_248.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_249.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_25.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_26.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_27.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_28.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_29.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_3.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_30.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_31.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_32.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_33.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_34.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_35.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_36.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_37.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_38.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_39.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_4.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_40.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_41.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_42.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_43.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_44.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_45.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_46.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_47.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_48.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_49.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_5.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_50.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_51.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_52.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_53.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_54.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_55.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_56.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_57.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_58.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_59.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_6.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_60.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_61.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_62.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_63.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_64.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_65.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_66.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_67.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_68.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_69.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_7.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_70.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_71.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_72.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_73.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_74.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_75.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_76.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_77.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_78.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_79.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_8.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_80.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_81.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_82.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_83.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_84.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_85.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_86.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_87.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_88.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_89.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_9.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_90.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_91.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_92.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_93.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_94.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_95.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_96.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_97.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_98.root',
-       '/store/user/bparida/MINIAODSIM/CRAB_PrivateMC/ttbar_pT200_MINIAODSIM/150207_234828/0000/step5_99.root'
         #'file:/eos/uscms/store/user/jstupak/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/Spring14dr-PU_S14_POSTLS170_V6AN1-v1/140622_185946/0000/miniAOD-prod_PAT_1.root'
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/4401D5A5-3D21-E411-B929-0025905B8606.root',
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/486E50A0-3D21-E411-B407-0025905A48BC.root',
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/48E70DA1-3D21-E411-AD52-0025905B85B2.root',
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/565B46A5-3D21-E411-9707-0025905A60BE.root',
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/686CBEAA-3D21-E411-BF3D-0025905A60B6.root',
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/CA7114AC-3D21-E411-8F56-0025905B8576.root',
+        'root://cmsxrootd.fnal.gov//store/results/ewk/StoreResults/ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp/USER/Spring14dr_PU_S14_POSTLS170_V6AN1_miniAOD706p1_814812ec83fce2f620905d2bb30e9100-v1/00000/D02DA964-3D21-E411-8F51-0025905A6084.root'
         )
                             )
 
+process.load('Hbb.HbbProducer.HbbProducer_cfi')
+if options.higgsCandSelection: 
+    process.HbbProducer.higgsCandSelection = cms.int32(options.higgsCandSelection)
+print 'Higgs candidate selection:',process.HbbProducer.higgsCandSelection
+
 #theGlobalTag='PHYS14_50_V2'
-theGlobalTag='PLS170_V6AN1::All'   #PU_S14
+#theGlobalTag='PLS170_V6AN1::All'   #PU_S14
 #theGlobalTag='PLS170_V7AN1::All'   #PU20bx25
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
-
-process.load('Hbb.HbbProducer.HbbProducer_cfi')
 
 #####################################################################################################################################
 
@@ -278,7 +55,9 @@ process.load('Configuration.StandardSequences.Geometry_cff')
 process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc')
+if options.theGlobalTag: process.GlobalTag = GlobalTag(process.GlobalTag, options.theGlobalTag)
+else:                    process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc')
+print 'global tag:',process.GlobalTag.globaltag
 
 #process.load('CondCore.DBCommon.CondDBSetup_cfi')
 
@@ -356,6 +135,23 @@ process.ak15PFJetsCHSFiltered = process.ak8PFJetsCHSFiltered.clone(rParam = 1.5)
 
 from PhysicsTools.PatAlgos.tools.jetTools import addJetCollection
 from PhysicsTools.PatAlgos.tools.jetTools import switchJetCollection
+
+"""
+addJetCollection(
+    process,
+    labelName = 'AK4GEN',
+    jetSource = cms.InputTag('ak4GenJets'),
+    algo = 'ak4',
+    rParam = 0.4,
+)
+
+process.patJetsAK4GEN.addGenJetMatch=False
+process.patJetsAK4GEN.embedGenJetMatch=False
+process.patJetsAK4GEN.addGenPartonMatch=False
+process.patJetsAK4GEN.embedGenPartonMatch=False
+process.patJetsAK4GEN.getJetMCFlavour=False
+process.patJetsAK4GEN.addDiscriminators=False
+"""
 
 addJetCollection(
     process,
@@ -462,8 +258,21 @@ process.load('RecoBTag.Configuration.RecoBTag_cff')
 process.load('RecoJets.Configuration.RecoJetAssociations_cff')
 process.load('PhysicsTools.PatAlgos.slimming.unpackedTracksAndVertices_cfi')
 #process.load('CondCore.DBCommon.CondDBSetup_cfi')
-#process.load('RecoBTag.SecondaryVertex.combinedSecondaryVertexES_cfi')
 process.load('RecoBTag.SecondaryVertex.combinedSecondaryVertexBJetTags_cfi')
+
+#JS3
+process.load('CondCore.DBCommon.CondDBSetup_cfi')
+process.BTauMVAJetTagComputerRecord = cms.ESSource('PoolDBESSource',
+                                                   process.CondDBSetup,
+                                                   timetype = cms.string('runnumber'),
+                                                   toGet = cms.VPSet(cms.PSet(record = cms.string('BTauGenericMVAJetTagComputerRcd'),
+                                                                              tag = cms.string('MVAComputerContainer_53X_JetTags_v3')
+                                                                              )),
+                                                   connect = cms.string('frontier://FrontierProd/CMS_COND_PAT_000'),
+                                                   BlobStreamerName = cms.untracked.string('TBufferBlobStreamingService')
+                                                   )
+process.es_prefer_BTauMVAJetTagComputerRecord = cms.ESPrefer('PoolDBESSource','BTauMVAJetTagComputerRecord')
+#JS3
 
 process.inclusiveCandidateVertexFinder.primaryVertices = 'offlineSlimmedPrimaryVertices'
 process.inclusiveCandidateVertexFinder.tracks = 'packedPFCandidates'

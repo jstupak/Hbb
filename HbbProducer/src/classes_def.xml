@@ -1,5 +1,6 @@
 <lcgdict>
-  <class name="Hbb::Tuple" ClassVersion="13">
+  <class name="Hbb::Tuple" ClassVersion="14">
+    <version ClassVersion="14" checksum="3189045721"/>
     <version ClassVersion="13" checksum="3164709347"/>
     <version ClassVersion="12" checksum="3025949169"/>
     <version ClassVersion="11" checksum="2335065851"/>

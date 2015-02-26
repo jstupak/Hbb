@@ -70,6 +70,8 @@ private:
   edm::InputTag _AK4GenSource;
   edm::InputTag _muonSource;
   edm::InputTag _electronSource;
+
+  int _higgsCandSelection;
   
   Hbb::Tuple _output;
   
@@ -116,6 +118,8 @@ HbbProducer::HbbProducer(const edm::ParameterSet& iConfig)
 
   _electronSource=edm::InputTag(iConfig.getParameter<edm::InputTag>("electronSource"));
 
+  _higgsCandSelection=iConfig.getParameter<int>("higgsCandSelection");
+
   //register your products
   produces<Hbb::Tuple>();
 }
@@ -160,8 +164,8 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   h_patJets AK4jets;
   iEvent.getByLabel(_AK4Source,AK4jets);
 
-  //h_patJets AK4GenJets;
-  //iEvent.getByLabel(_AK4GenSource,AK4GenJets);
+  h_patJets AK4GenJets;
+  iEvent.getByLabel(_AK4GenSource,AK4GenJets);
 
   h_patJets AK8jets;
   iEvent.getByLabel(_AK8Source,AK8jets);
@@ -227,8 +231,6 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   //Event quantities
-
-  //cout<<"Rho"<<endl;
 
   _output.rho=*rho;
 
@@ -319,12 +321,12 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   if(AK4jets->size()>1){
     pat::Jet d1=pat::Jet();
     pat::Jet d2=pat::Jet();
-    getHiggsCandidate(AK4jets, d1, d2, 1);
+    getHiggsCandidate(AK4jets, d1, d2, _higgsCandSelection);  //0=pT based, 1=csv based
 
     Hbb::Jet j1=Hbb::Jet(d1);
     Hbb::Jet j2=Hbb::Jet(d2);
     Hbb::Higgs h=Hbb::Higgs(j1.lv+j2.lv);
-    if(j1.lv.Pt()>j2.lv.Pt()){
+    if(d1.pt()>d2.pt()){
       h.daughters.push_back(j1);
       h.daughters.push_back(j2);
       _output.pull=getPull(d1,d2);
@@ -334,14 +336,24 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
       h.daughters.push_back(j1);
       _output.pull=getPull(d2,d1);
     }
+    if(d1.genJet() && d2.genJet()){
+      if(d1.genJet()->pt()>d2.genJet()->pt()){
+	_output.genPull=getPull(*(d1.genJet()),*(d2.genJet()));
+      }
+      else{
+	_output.genPull=getPull(*(d2.genJet()),*(d1.genJet()));
+      }
+    }
 
     _output.theHiggs=h;
 
-    vector<Hbb::Higgs> teleHiggs=telescope(d1, d2, packedCandidates, iEvent, iSetup);
+    vector<Hbb::Higgs> teleHiggs=telescope(d1, d2, packedCandidates, iEvent, iSetup, true);
     _output.TeleHiggs=teleHiggs;
 
-    teleHiggs=telescope(_output.genB, _output.genAntiB, packedGenParticles, iEvent, iSetup);
-    _output.genTeleHiggs=teleHiggs;
+        if(_output.genB.lv.Pt()>0.01 && _output.genAntiB.lv.Pt()>0.01){
+	  teleHiggs=telescope(_output.genB, _output.genAntiB, packedGenParticles, iEvent, iSetup, false);
+      _output.genTeleHiggs=teleHiggs;
+    }
   }
   
   //clock_t ak4=clock();
@@ -350,20 +362,28 @@ HbbProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   //AK4 Gen Jets
   /*
-  if(AK4GenJets->size()>0){
-    for(auto jet1=AK4GenJets->begin(); jet1!=AK4GenJets->end(); ++jet1){
-      Hbb::Jet jet=Hbb::Jet(jet1->pt(), jet1->eta(), jet1->phi(), jet1->mass());
-      jet.csv = jet1->bDiscriminator("combinedSecondaryVertexBJetTags");
-      _output.AK4PFCHS.push_back(jet);
-    }
-  }
-
+  vector<pat::Jet> genBToGenJet;
   if(AK4GenJets->size()>1){
-    pat::Jet d1=pat::Jet();
-    pat::Jet d2=pat::Jet();
-    getHiggsCandidate(AK4GenJets, d1, d2);
-    vector<Hbb::Higgs> theHiggses=telescope(d1, d2, packedCandidates, iEvent, iSetup);
-    _output.Higgses=theHiggses;
+    vector<Hbb::GenParticle> genBs;
+    genBs.push_back(_output.genB); genBs.push_back(_output.genAntiB);
+    
+    for(unsigned int i=0; i<2; i++){
+      double deltaR2Min=9999999;
+      for(auto inputJet=AK4GenJets->begin(); inputJet!=AK4GenJets->end(); ++inputJet){
+	double deltaR2=reco::deltaR2(inputJet->eta(), inputJet->phi(), genBs[i].lv.Eta(), genBs[i].lv.Phi());
+	if(deltaR2<deltaR2Min){
+	  deltaR2Min=deltaR2;
+	  genBToGenJet[i]=*inputJet;
+	}
+      }
+    }
+
+    if (_output.genB.lv.Pt()>_output.genAntiB.lv.Pt())
+      _output.genPull=getPull(genBToGenJet[0],genBToGenJet[1]);
+    else {
+      if (_output.genB.lv.Pt()<_output.genAntiB.lv.Pt())
+	_output.genPull=getPull(genBToGenJet[1],genBToGenJet[0]);
+    }
   }
   */
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

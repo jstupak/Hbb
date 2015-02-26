@@ -1,5 +1,6 @@
 #include "DataFormats/JetReco/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
+#include "DataFormats/Math/interface/deltaPhi.h"
 
 #include "Hbb/HbbProducer/interface/HbbTuple.h"
 
@@ -56,30 +57,57 @@ void getHiggsCandidate(vector<Hbb::Jet> inputJets, pair<int,int> &leadingSublead
   }
 }
 
+double getPull(reco::Jet j1, reco::Jet j2){
 
-
-double getPull(pat::Jet j1, pat::Jet j2){
-
-  double pullPhi=0;
-  double pullY=0;
-  
+  //recalculate j1 from charged constituents
+  TLorentzVector j1_lv;
+  int nConst=0;
   reco::Jet::Constituents constituents=j1.getJetConstituents();
-  
   for(auto constituentItr=constituents.begin(); constituentItr!=constituents.end(); ++constituentItr){
     edm::Ptr<reco::Candidate> constituent=*constituentItr;
-    
-    double deltaY=constituent->y()-j1.y();
-    double deltaPhi=constituent->phi()-j1.phi();
-    pullPhi += constituent->pt() * sqrt( pow(deltaY,2) + pow(deltaPhi,2) ) * deltaPhi;
-    pullY   += constituent->pt() * sqrt( pow(deltaY,2) + pow(deltaPhi,2) ) * deltaY;
-  }
-  pullPhi=pullPhi/j1.pt();
-  pullY  =pullY  /j1.pt();
-  double pullTheta=atan(pullPhi/pullY);
+    if(constituent->charge()==0 || constituent->pt()==0) continue;
+    nConst++;
 
-  double deltaY=j1.y()-j2.y();
-  double deltaPhi=j1.phi()-j2.phi();
-  double deltaTheta=atan(deltaPhi/deltaY);
-  
-  return acos(cos(pullTheta-deltaTheta));
+    TLorentzVector t_lv;
+    t_lv.SetPtEtaPhiM(constituent->pt(), constituent->eta(), constituent->phi(), constituent->mass());
+    j1_lv+=t_lv;
+  }
+  if(j1_lv.Pt()==0 || nConst<2) return -9999;
+
+  //calculate pull vector
+  double pullPhi=0;
+  double pullY=0;
+  for(auto constituentItr=constituents.begin(); constituentItr!=constituents.end(); ++constituentItr){
+    edm::Ptr<reco::Candidate> constituent=*constituentItr;
+    if(constituent->charge()==0 || constituent->pt()==0) continue;
+
+    double dY=constituent->y()-j1_lv.Rapidity();
+    double dPhi=reco::deltaPhi(constituent->phi(), j1_lv.Phi());
+    pullPhi += constituent->pt() * sqrt(pow(dPhi,2) + pow(dY,2)) * dPhi;
+    pullY   += constituent->pt() * sqrt(pow(dPhi,2) + pow(dY,2)) * dY;
+  }
+  pullPhi=pullPhi/j1_lv.Pt();
+  pullY  =pullY  /j1_lv.Pt();
+  double pullTheta=atan2(pullPhi,pullY);
+
+  //recalculate j2 from charged constituents  
+  TLorentzVector j2_lv;
+  nConst=0;
+  constituents=j2.getJetConstituents();
+  for(auto constituentItr=constituents.begin(); constituentItr!=constituents.end(); ++constituentItr){
+    edm::Ptr<reco::Candidate> constituent=*constituentItr;
+    if(constituent->charge()==0 || constituent->pt()==0) continue;
+    nConst++;
+
+    TLorentzVector t_lv;
+    t_lv.SetPtEtaPhiM(constituent->pt(), constituent->eta(), constituent->phi(), constituent->mass());
+    j2_lv+=t_lv;
+  }
+  if(j2_lv.Pt()==0 || nConst<2) return -9999;
+
+  double deltaY=j2_lv.Rapidity()-j1_lv.Rapidity();
+  double deltaPhi=reco::deltaPhi(j2_lv.Phi(),j1_lv.Phi());
+  double deltaTheta=atan2(deltaPhi,deltaY);
+
+  return reco::deltaPhi(pullTheta,deltaTheta);
 }
